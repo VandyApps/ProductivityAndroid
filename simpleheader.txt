@@ -1,0 +1,145 @@
+/*
+Network<->Project<->Task<->(task)<->
+
+User^	  User^	    User^
+*/
+
+//a note: most dynamic arrays here can be implemented with linked lists,
+//but i don't know if that's more or less efficient
+//it can probably be changed rather easily
+
+struct msg{
+	user* fromuser; //from:, also the pointer here could be an integer ID as mentioned below
+	user* touser; //to:
+	string re; //re or subject line
+	string text; //text of message
+	task* about; //if a task message, "about" points to the task that was messaged to
+	bool read; //if read by user
+}
+
+struct date{
+	size_t year;
+	size_t month;
+	size_t day;
+}
+
+struct milestone{
+	//idfk what goes here though lol
+}
+
+struct notif{
+	task* about;
+	string text;
+	bool read; //if read by user
+}
+
+class network{
+	private:
+		int networkID;//hash
+		user* userlist;//list of all users
+		size_t numberofusers;
+
+		user* oplist; //list of all users with ability to create projects; not 100% sure about this
+		size_t numberofops;
+
+		project* projectlist;
+		size_t numberofops;
+
+		string title;
+		string description;
+	public:
+		network();
+		network( int nethashid );//construct with hashed ID
+
+		bool adduser( user &usertoadd );//or integer ID if we're doing that
+		bool addop( user &usertoop );
+		bool receivejoinrequest( user &requestuser );//do something after receiving join request
+		bool get( string field ) const;
+		bool set( string field, Itemtype newval );//read comments below on set/get methods
+}
+
+class user{
+	private:
+		int ID;//hash value, probably; not so sure about this
+		string name;
+
+		network* mynetworks;
+		size_t numberofnetworks;
+
+		project* myprojects;
+		size_t numberofprojects;
+
+		task* mytasks;
+		size_t numberofprojects;
+
+		message* mymsgs;
+		size_t numberofusermsgs;
+		size_t numberoftaskmsgs;
+
+	public:
+		user();
+		user( int identificationhash );//construct with hashed ID
+
+		bool sendusermsg( msg &msgtosend );//send message to other user (touser contained in msg struct)
+		bool receiveusermsg( msg &msgtosend );//bool returned: 0 for didn't work, 1 for did work
+		bool sendtaskmsg( msg &msgtosend );//could also return int if want to use -1, 0, 1 instead
+		bool receivetaskmsg( msg &msgtosend );
+		bool get( string field ) const;
+		bool set( string field, ItemType newval ); //ItemType used along with function template definition to allow for fields with any data type
+		//above used to change all elements of the user class
+		//it would be best to have specific "addtask/rmtask" or "addnetwork/rmnetwork" to handle all the dynamic array business and make it less complex to code
+		//this will work for now though i think
+		//essentially have a giant switch statement acting on the "field" string to choose which user field to edit
+		bool complete( task &finishedtask ); //check off a task; mark it complete
+		bool asktojoinnetwork( network &possiblenetwork ); //or integer ID if we're doing that
+		bool receivenotif( notif &notiftoreceive );
+}
+
+class task{
+	protected://not private because i want project-specific methods to access these things too
+		bool tasktype;//initialized to 0 for standard task, 1 for project; could use int if we want multiple derived classes
+
+		user** assignedusers;//array of pointers; may instead be an int* if using user IDs
+		size_t numberofassignedusers;
+		user** followingusers;//users following updates to this task
+		size_t numberoffollowingusers;
+
+		date startdate;
+		date enddate;
+
+		string* tags;
+		size_t numberoftags;
+
+		task** supertasks;
+		size_t numberofsupertasks;
+
+		task** subtasks;
+		size_t numberofsubtasks;
+
+		milestone** milestonelist;
+		size_t numberofmilestones;
+
+		//whatever other fields we choose to add
+		//have a dynamic array of "field" objects
+		//with title and description for base class
+		//and then inherited classes for special fields
+		//such as budget, date, bill of materials, etc
+
+	public:
+		task();
+		task( task &superclass );
+		//idk other ctors maybe whatever
+
+		bool get( string field ) const;
+		bool set( string field, Itemtype newval ) const;
+		bool adduser( user &usertoadd );
+		bool sendmsg( msg &msgtosend );
+		bool receivemsg( msg &msgtosend );
+		bool sendnotif( user &usertosend, notif &notiftosend );
+}
+
+class project : public task{
+	private:
+		//idk can't think of anything specific atm
+	public:
+		project();//not using task() ctor because we want to set tasktype to 1
