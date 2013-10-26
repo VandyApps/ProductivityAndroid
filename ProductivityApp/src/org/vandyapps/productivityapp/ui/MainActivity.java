@@ -1,8 +1,9 @@
-package org.vandyapps.productivityapp;
+package org.vandyapps.productivityapp.ui;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import org.vandyapps.productivityapp.R;
 
 public class MainActivity extends Activity {
 

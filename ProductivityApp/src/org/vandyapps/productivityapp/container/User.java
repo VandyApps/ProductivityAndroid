@@ -1,4 +1,6 @@
-package org.vandyapps.productivityapp;
+package org.vandyapps.productivityapp.container;
+
+import org.vandyapps.productivityapp.network.Network;
 
 public class User {
 	private int ID;//hash value, probably; not so sure about this

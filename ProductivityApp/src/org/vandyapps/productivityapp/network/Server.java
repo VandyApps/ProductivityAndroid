@@ -1,5 +1,11 @@
-import org.vandyapps.productivityapp.Project;
-import org.vandyapps.productivityapp.User;
+package org.vandyapps.productivityapp.network;
+
+import android.content.Context;
+import org.vandyapps.productivityapp.container.Project;
+import org.vandyapps.productivityapp.container.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represent a server that stores data and mediates communication
@@ -7,20 +13,20 @@ import org.vandyapps.productivityapp.User;
  * 
  * This class will handle caching and saving data,
  */
-public class abstract Server {
+public abstract class Server {
 	
 	/**
 	 * Factory method.
 	 */
 	public static Server initiate(Context ctx) { return null; }
 	
-	public abstract Server terminate() { return null; }
+	public abstract Server terminate();
 	
-	public abstract User getUserById(int id) { return null; }
+	public abstract User getUserById(int id);
 	
-	public abstract Project getProjectById(int id) { return null; }
+	public abstract Project getProjectById(int id);
 	
-	public abstract List<Project> queryProjectsOf(User user) { return null; }
+	public abstract List<Project> queryProjectsOf(User user);
 	
 	
 	// ----- Messaging facility ----- //
@@ -33,7 +39,7 @@ public class abstract Server {
 	
 	public Server addServerListener(ServerListener listener) { 
 		mListeners.add(listener);
-		return this; )
+		return this; }
 	
 	public Server removeServerListener(ServerListener listener) { 
 		mListeners.remove(listener);

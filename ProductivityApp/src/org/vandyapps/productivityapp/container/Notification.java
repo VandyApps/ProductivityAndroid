@@ -1,4 +1,4 @@
-package org.vandyapps.productivityapp;
+package org.vandyapps.productivityapp.container;
 
 public class Notification {
 
