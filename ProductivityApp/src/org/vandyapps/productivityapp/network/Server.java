@@ -1,6 +1,7 @@
 package org.vandyapps.productivityapp.network;
 
 import android.content.Context;
+import org.vandyapps.productivityapp.container.Msg;
 import org.vandyapps.productivityapp.container.Project;
 import org.vandyapps.productivityapp.container.User;
 
@@ -28,8 +29,9 @@ public abstract class Server {
 	
 	public abstract List<Project> queryProjectsOf(User user);
 	
-	
-	// ----- Messaging facility ----- //
+	public abstract Server sendMessage(Msg message);
+
+	// ----- Callback facility ----- //
 	
 	private List<ServerListener> mListeners = new ArrayList<ServerListener>();
 	
@@ -52,5 +54,14 @@ public abstract class Server {
 	}
 	
 	// ----- END ----- //
+
+    /**
+     * All objects dished out by this server should have a way to talk back to server,
+     * in order to record their state change.
+     */
+    public interface ServerSpawnling {
+        void recognizeMeIBroughtYouIntoThisWorldToAdvanceMyCause(Server broodMother);
+    }
+
 }
 
