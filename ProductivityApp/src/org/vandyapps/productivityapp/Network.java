@@ -62,7 +62,7 @@ public class Network {
 	 * Returns network description.
 	 * @return
 	 */
-	public String getDescription() {
+	public String getDescription(){
 		return description;
 	}
 	
@@ -90,15 +90,17 @@ public class Network {
 	 * This would preclude people with the same name being
 	 * interpreted as the same user.
 	 */
-	public boolean addUser(String name) {
+	public boolean addUser(int userid) {
 		/*try {
-			user.add(name);
+			user.add(userid);
 			return true;
 		}
 		finally {
 			return false;
 		}*/
-		if(user.add(name)){
+		if (user.add("userid")){
+			// here we have to add whatever String is associated with
+			// a given user id
 			return true;
 		}
 		return false;
@@ -108,6 +110,7 @@ public class Network {
 		 * this case would execute if any type of exception occurs.
 		 * We could easily change this later.
 		 */
+		// Network will check to see if user has administrator 
 	}
 	
 	/**
@@ -119,18 +122,21 @@ public class Network {
 	/* See previous comments about try-finally. Same with a project
 	 * id.
 	 */
-	public boolean addProject(String project) {
+	public boolean addProject(int projectid) {
 		/*try {
-			this.project.add(project);
+			this.project.add(projectid);
 			return true;
 		}
 		finally {
 			return false;
 		}*/
-		if(this.project.add(project)){
+		if(this.project.add("projectid")){
+			// here we have to add whatever String is associated with
+			// a given project id
 			return true;
 		}
 		return false;
+		// return project id instead?
 	}
 	
 	/**
@@ -145,9 +151,9 @@ public class Network {
 	 * Another way to preclude the "user does not exist" error would be
 	 * to associate users with an id number. 
 	 */
-	public boolean removeUser(String user) {
+	public boolean removeUser(int userid) {
 		try {
-			this.user.remove(this.user.indexOf(user));
+			this.user.remove(this.user.indexOf(userid));
 			// we have problems here if multiple users have the same name
 			return true;
 		}
@@ -165,9 +171,9 @@ public class Network {
 	
 	/* See comments on 'removeUser.'
 	 */
-	public boolean removeProject(String project) {
+	public boolean removeProject(int projectid) {
 		try {
-			this.project.remove(this.project.indexOf(project));
+			this.project.remove(this.project.indexOf(projectid));
 			// problems if multiple projects have the same name
 			return true;
 		}
