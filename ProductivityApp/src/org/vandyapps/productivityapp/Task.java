@@ -35,7 +35,6 @@ public class Task {
 		//possibly other ctors 
 
 	public boolean get(String field) {return true;}
-	public boolean set(String field, Itemtype newval) {return true;}
 	public boolean adduser(User usertoadd )	{return true;}
 	public boolean sendmsg(Msg msgtosend )	{return true;}
 	public boolean receivemsg(Msg msgtosend )	{return true;}
