@@ -1,5 +1,4 @@
-package org.vandyapps.productivityapp;
-import java.util.*;
+package org.vandyapps.productivityapp.network;
 
 public class Network {
 	private int id;

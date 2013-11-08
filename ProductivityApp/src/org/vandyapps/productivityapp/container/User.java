@@ -1,4 +1,6 @@
-package org.vandyapps.productivityapp;
+package org.vandyapps.productivityapp.container;
+
+import org.vandyapps.productivityapp.network.Network;
 
 import java.util.ArrayList;
 
