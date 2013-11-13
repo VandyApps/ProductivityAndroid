@@ -12,7 +12,7 @@ public class User {
 	private ArrayList<Project> myProjects = new ArrayList<Project>();
 	private ArrayList<Task> myTasks = new ArrayList<Task>();
 
-	private ArrayList<Msg> myMsgs = new ArrayList<Msg>();
+	//private ArrayList<Msg> myMsgs = new ArrayList<Msg>();
 
 	public User() {
 		//use randomly generated username, maybe like "AnonymousXXX"
@@ -31,27 +31,32 @@ public class User {
 	public boolean get(String field) {return true;} 
 	public boolean complete(Task finishedtask) {return true;}  //check off a task; mark it complete
 	
-	public boolean addNetwork(Network possiblenetwork) {
-		if(myNetworks.add(possiblenetwork)){
-			return true;
-		}
-		return false;
-	}  //or integer ID if we're doing that
-	public boolean addProject(Project newProject) {
-		if(myProjects.add(newProject)){
-			return true;
-		}
-		return false;
+	public void addNetwork(Network possiblenetwork) {
+		myNetworks.add(possiblenetwork);
 	}
-	public boolean addTask(Task newTask) {
-		if(myTasks.add(newTask)){
-			return true;
-		}
-		return false;
+	public void addProject(Project newProject) {
+		myProjects.add(newProject);
 	}
-	public boolean receivenotif(Notification notiftoreceive) {
-		
-		return true;
+	public void addTask(Task newTask) {
+		myTasks.add(newTask);
+	}
+	
+	
+	
+	public int getId() {
+		return id;
 	} 
+	
+	public void setId(int newId){
+		id = newId;
+	}
+	
+	public String getUsername(){
+		return name;
+	}
+	
+	public void setUsername(String newUser){
+		name = newUser;
+	}
 
 }
